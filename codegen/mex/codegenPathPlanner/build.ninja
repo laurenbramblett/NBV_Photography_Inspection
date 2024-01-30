@@ -1,0 +1,100 @@
+# CompilerName=mingw64
+# Mode=optim
+ninja_required_version = 1.3
+
+# Basic folders
+root = .
+builddir = $root/build/win64
+matlabdir = C:/Program Files/MATLAB/R2023a
+startdir = C:/Users/qbr5kx/OneDrive - University of Virginia/Desktop/UVA/PhD Scratch/NextBestView/ExampleCode
+
+# Toolchain information
+cc = C:\ProgramData\MATLAB\SupportPackages\R2023a\3P.instrset\mingw_w64.instrset\bin\gcc
+cxx = C:\ProgramData\MATLAB\SupportPackages\R2023a\3P.instrset\mingw_w64.instrset\bin\g++
+linker = C:\ProgramData\MATLAB\SupportPackages\R2023a\3P.instrset\mingw_w64.instrset\bin\gcc
+linkerxx = C:\ProgramData\MATLAB\SupportPackages\R2023a\3P.instrset\mingw_w64.instrset\bin\g++
+
+cflags =  -c -fexceptions -fno-omit-frame-pointer -m64 -DMATLAB_MEX_FILE  -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c99 -I "C:\Users\qbr5kx\OneDrive - University of Virginia\Desktop\UVA\PhD Scratch\NextBestView\ExampleCode\codegen\mex\codegenPathPlanner" -I "C:\Users\qbr5kx\OneDrive - University of Virginia\Desktop\UVA\PhD Scratch\NextBestView\ExampleCode" -I "C:\Program Files\MATLAB\R2023a\extern\include\nav" -I "C:\Program Files\MATLAB\R2023a\extern\include\shared_autonomous" -I "C:\Users\qbr5kx\OneDrive - University of Virginia\Desktop\UVA\PhD Scratch\NextBestView\ExampleCode\codegen\mex\codegenPathPlanner\interface" -I "C:\Program Files\MATLAB\R2023a\extern\include" -I "." -DMODEL=codegenPathPlanner_mex -D__USE_MINGW_ANSI_STDIO=1 -msse2 
+
+cxxflags =  -c -fexceptions -fno-omit-frame-pointer -m64 -DMATLAB_MEX_FILE  -DMATLAB_MEX_FILE -O2 -fwrapv -DNDEBUG -std=c++11 -I "C:\Users\qbr5kx\OneDrive - University of Virginia\Desktop\UVA\PhD Scratch\NextBestView\ExampleCode\codegen\mex\codegenPathPlanner" -I "C:\Users\qbr5kx\OneDrive - University of Virginia\Desktop\UVA\PhD Scratch\NextBestView\ExampleCode" -I "C:\Program Files\MATLAB\R2023a\extern\include\nav" -I "C:\Program Files\MATLAB\R2023a\extern\include\shared_autonomous" -I "C:\Users\qbr5kx\OneDrive - University of Virginia\Desktop\UVA\PhD Scratch\NextBestView\ExampleCode\codegen\mex\codegenPathPlanner\interface" -I "C:\Program Files\MATLAB\R2023a\extern\include" -I "." -DMODEL=codegenPathPlanner_mex -D__USE_MINGW_ANSI_STDIO=1 -msse2 
+
+ldflags =  -m64 -Wl,--no-undefined -shared -static -L"C:\Program Files\MATLAB\R2023a\extern\lib\win64\mingw64" -llibmx -llibmex -llibmat -lm -llibmwlapack -llibmwblas -o "codegenPathPlanner_mex.mexw64" -llibemlrt -llibcovrt -llibut -llibmwmathutil  codegenPathPlanner_mex.def
+
+linkobjs =  "$matlabdir\extern\lib\win64\mingw64\libmwautonomouscodegen.lib"
+
+# Build Rules
+rule cc
+    command = $cc $cflags $in -o $out
+
+rule cxx
+    command = $cxx $cxxflags $in -o $out
+
+rule link
+    command = $linker @$out.rsp $linkobjs $ldflags
+    rspfile = $out.rsp
+    rspfile_content = $in
+
+rule linkxx
+    command = $linkerxx $in $linkobjs $ldflags
+
+# Build
+build $builddir/priorityqueue_api.o : cxx $matlabdir/toolbox/nav/navalgs2/builtins/libsrc/priorityqueuecodegen/priorityqueue_api.cpp
+build $builddir/codegenPathPlanner_data.o : cc $root/codegenPathPlanner_data.c
+build $builddir/rt_nonfinite.o : cc $root/rt_nonfinite.c
+build $builddir/codegenPathPlanner_initialize.o : cc $root/codegenPathPlanner_initialize.c
+build $builddir/codegenPathPlanner_terminate.o : cc $root/codegenPathPlanner_terminate.c
+build $builddir/codegenPathPlanner.o : cc $root/codegenPathPlanner.c
+build $builddir/binaryOccupancyMap.o : cc $root/binaryOccupancyMap.c
+build $builddir/MapLayer.o : cc $root/MapLayer.c
+build $builddir/all.o : cc $root/all.c
+build $builddir/diskstrel.o : cc $root/diskstrel.c
+build $builddir/validatorOccupancyMap.o : cc $root/validatorOccupancyMap.c
+build $builddir/plannerHybridAStar.o : cc $root/plannerHybridAStar.c
+build $builddir/MapInterface.o : cc $root/MapInterface.c
+build $builddir/CircularBuffer.o : cc $root/CircularBuffer.c
+build $builddir/CircularBufferIndex.o : cc $root/CircularBufferIndex.c
+build $builddir/mod.o : cc $root/mod.c
+build $builddir/ixfun.o : cc $root/ixfun.c
+build $builddir/NameValueParser.o : cc $root/NameValueParser.c
+build $builddir/validatestring.o : cc $root/validatestring.c
+build $builddir/ifWhileCond.o : cc $root/ifWhileCond.c
+build $builddir/plannerAStarGrid.o : cc $root/plannerAStarGrid.c
+build $builddir/validateAStarBuiltinCostFunction.o : cc $root/validateAStarBuiltinCostFunction.c
+build $builddir/PriorityQueue.o : cc $root/PriorityQueue.c
+build $builddir/NodeMap.o : cc $root/NodeMap.c
+build $builddir/sum.o : cc $root/sum.c
+build $builddir/plannerAStarGrid1.o : cc $root/plannerAStarGrid1.c
+build $builddir/find.o : cc $root/find.c
+build $builddir/indexShapeCheck.o : cc $root/indexShapeCheck.c
+build $builddir/warning.o : cc $root/warning.c
+build $builddir/ReedsSheppBuiltins.o : cc $root/ReedsSheppBuiltins.c
+build $builddir/linspace.o : cc $root/linspace.c
+build $builddir/repmat.o : cc $root/repmat.c
+build $builddir/allOrAny.o : cc $root/allOrAny.c
+build $builddir/any.o : cc $root/any.c
+build $builddir/nonzeros.o : cc $root/nonzeros.c
+build $builddir/diff.o : cc $root/diff.c
+build $builddir/unique.o : cc $root/unique.c
+build $builddir/nnz.o : cc $root/nnz.c
+build $builddir/sumMatrixIncludeNaN.o : cc $root/sumMatrixIncludeNaN.c
+build $builddir/navPath.o : cc $root/navPath.c
+build $builddir/repelem.o : cc $root/repelem.c
+build $builddir/handle.o : cc $root/handle.c
+build $builddir/_coder_codegenPathPlanner_api.o : cc $root/interface/_coder_codegenPathPlanner_api.c
+build $builddir/_coder_codegenPathPlanner_mex.o : cc $root/interface/_coder_codegenPathPlanner_mex.c
+build $builddir/eml_int_forloop_overflow_check.o : cc $root/eml_int_forloop_overflow_check.c
+build $builddir/strcmp.o : cc $root/strcmp.c
+build $builddir/sqrt.o : cc $root/sqrt.c
+build $builddir/flipud.o : cc $root/flipud.c
+build $builddir/nullAssignment.o : cc $root/nullAssignment.c
+build $builddir/wrapToPi.o : cc $root/wrapToPi.c
+build $builddir/stateSpaceSE2.o : cc $root/stateSpaceSE2.c
+build $builddir/inflate.o : cc $root/inflate.c
+build $builddir/wrapTo2Pi.o : cc $root/wrapTo2Pi.c
+build $builddir/codegenPathPlanner_emxutil.o : cc $root/codegenPathPlanner_emxutil.c
+build $builddir/codegenPathPlanner_mexutil.o : cc $root/codegenPathPlanner_mexutil.c
+build $builddir/_coder_codegenPathPlanner_info.o : cc $root/interface/_coder_codegenPathPlanner_info.c
+build $builddir/c_mexapi_version.o : cc $matlabdir/extern/version/c_mexapi_version.c
+
+# Link
+build $root\codegenPathPlanner_mex.mexw64 : linkxx $builddir/priorityqueue_api.o $builddir/codegenPathPlanner_data.o $builddir/rt_nonfinite.o $builddir/codegenPathPlanner_initialize.o $builddir/codegenPathPlanner_terminate.o $builddir/codegenPathPlanner.o $builddir/binaryOccupancyMap.o $builddir/MapLayer.o $builddir/all.o $builddir/diskstrel.o $builddir/validatorOccupancyMap.o $builddir/plannerHybridAStar.o $builddir/MapInterface.o $builddir/CircularBuffer.o $builddir/CircularBufferIndex.o $builddir/mod.o $builddir/ixfun.o $builddir/NameValueParser.o $builddir/validatestring.o $builddir/ifWhileCond.o $builddir/plannerAStarGrid.o $builddir/validateAStarBuiltinCostFunction.o $builddir/PriorityQueue.o $builddir/NodeMap.o $builddir/sum.o $builddir/plannerAStarGrid1.o $builddir/find.o $builddir/indexShapeCheck.o $builddir/warning.o $builddir/ReedsSheppBuiltins.o $builddir/linspace.o $builddir/repmat.o $builddir/allOrAny.o $builddir/any.o $builddir/nonzeros.o $builddir/diff.o $builddir/unique.o $builddir/nnz.o $builddir/sumMatrixIncludeNaN.o $builddir/navPath.o $builddir/repelem.o $builddir/handle.o $builddir/_coder_codegenPathPlanner_api.o $builddir/_coder_codegenPathPlanner_mex.o $builddir/eml_int_forloop_overflow_check.o $builddir/strcmp.o $builddir/sqrt.o $builddir/flipud.o $builddir/nullAssignment.o $builddir/wrapToPi.o $builddir/stateSpaceSE2.o $builddir/inflate.o $builddir/wrapTo2Pi.o $builddir/codegenPathPlanner_emxutil.o $builddir/codegenPathPlanner_mexutil.o $builddir/_coder_codegenPathPlanner_info.o $builddir/c_mexapi_version.o 
