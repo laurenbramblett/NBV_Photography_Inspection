@@ -11,7 +11,9 @@ After cloning, a user may run either of the two samples in matlab.
 
 
 If using this repository for research, please cite our work:
-```@article{gaonext,
+```
+@article{gaonext,
   title={Next-Best-View-based Task and Motion Planning for Autonomous Photography \& Inspection},
   author={Gao, Shijie and Bramblett, Lauren and Bezzo, Nicola}
-}```
+}
+```
