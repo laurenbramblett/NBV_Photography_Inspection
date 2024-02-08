@@ -372,9 +372,9 @@ for i = 1:coolDownTimer
     frame(end+1) = frame(end);
 end
 
-save(sprintf(['./SimResult/', timeStamp, 'approach','.mat']));
+save(sprintf([timeStamp, 'approach','.mat']));
 
-videoName = sprintf(['./SimResult/', timeStamp,'approach', '_1']);
+videoName = sprintf([timeStamp,'approach', '_1']);
 video = VideoWriter(videoName, 'MPEG-4');
 video.FrameRate = 10;
 open(video);

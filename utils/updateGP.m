@@ -5,6 +5,7 @@ function gp = updateGP(gp,hitCoords,goalHits,options)
     %Find best theta fit for data
     if gp.update 
         gp.theta = fminunc(@(theta) nll_stable(gp,theta),gp.theta,options);
+        gp.theta = min(max(gp.theta,0),1);
         gp.update = 0;
     end
     %Update hit likelihood
